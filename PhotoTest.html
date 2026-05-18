@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SanctumSpace — Photo Test · Reference photography in artboards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="phototest.jsx"></script>
+  <script type="text/babel">
+    const { DesignCanvas, DCSection, DCArtboard } = window;
+
+    function App() {
+      const cat3 = PHOTOS.filter(p => p.cat === 3); // light studies
+      const cat2 = PHOTOS.filter(p => p.cat === 2); // material close-ups
+
+      return (
+        <DesignCanvas>
+
+          {/* Section 0 — the references themselves, full-frame */}
+          <DCSection
+            id="references"
+            title="The six references"
+            subtitle="Five new references, April 26. One Light Study (the wall wash) and four Material Close-Ups — three of them in the same 3.2:1 ultra-wide aspect, purpose-built for the Model panel banner. Still no Cat 1 figures — those need a real shoot."
+          >
+            <DCArtboard id="ref-grid" label="All six · grid view" width={1440} height={760}>
+              <ReferenceGrid />
+            </DCArtboard>
+          </DCSection>
+
+          {/* Section 1 — light-study-01 slot (HeroTwo full-bleed right) */}
+          <DCSection
+            id="slot-light-study-01"
+            title="Slot: light-study-01 · HeroTwo full-bleed right"
+            subtitle="58% of 1440 wide · sits beside sage tagline panel. The photo bleeds to the right edge. Only one Light Study in this batch — judge by how the warm wall-wash holds against sage and reads under the cream serif type."
+          >
+            {cat3.map(p => (
+              <DCArtboard key={p.id} id={`ls01-${p.id}`} label={`${p.label} · in HeroTwo`} width={1440} height={900}>
+                <Slot_LightStudy01 photo={p} />
+              </DCArtboard>
+            ))}
+          </DCSection>
+
+          {/* Section 2 — light-study-02 slot (Partners Opportunity right plate) */}
+          <DCSection
+            id="slot-light-study-02"
+            title="Slot: light-study-02 · Partners Opportunity"
+            subtitle="Half-width photo plate beside body copy on cream. ~660 × 720 visible. Same wall-wash reference, more contained framing — photo carries less weight here than in HeroTwo."
+          >
+            {cat3.map(p => (
+              <DCArtboard key={p.id} id={`ls02-${p.id}`} label={`${p.label} · in Opportunity`} width={1440} height={720}>
+                <Slot_LightStudy02 photo={p} />
+              </DCArtboard>
+            ))}
+          </DCSection>
+
+          {/* Section 3 — material-closeup-01 slot (Partners Model banner) */}
+          <DCSection
+            id="slot-material-closeup-01"
+            title="Slot: material-closeup-01 · Partners Model panel"
+            subtitle="Wide horizontal banner under the Model section heading. 1328 × 320 visible. Four Material Close-Ups tested — three are already 3.2:1 native, so they crop minimally. The sage wool is the wildcard: it literally is the brand color."
+          >
+            {cat2.map(p => (
+              <DCArtboard key={p.id} id={`mc01-${p.id}`} label={`${p.label} · in Model panel`} width={1440} height={560}>
+                <Slot_MaterialCloseup01 photo={p} />
+              </DCArtboard>
+            ))}
+          </DCSection>
+
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
