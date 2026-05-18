@@ -2,82 +2,763 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>SanctumSpace — Homepage hero, three directions</title>
+  <title>SanctumSpace — Control your moments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Premium private pods for the world's leading airports. Opening 2027." />
+
+  <link rel="icon" type="image/png" href="assets/logomark-sage.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── design tokens ────────────────────────────────────── */
+    :root {
+      --cream: #F5EFE6;
+      --cream-deep: #EDE5D8;
+      --sage: #5C6B5A;
+      --sage-deep: #4A5849;
+      --sage-light: #A8B5A0;
+      --stone: #C9B8A8;
+      --accent: #C9997A;
+      --accent-soft: #E5C9B4;
+      --ink: #4A4A48;
+      --ink-soft: #6B6B68;
 
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-</head>
-<body>
-  <div id="root"></div>
+      --serif: "Cormorant Garamond", "EB Garamond", Garamond, serif;
+      --sans:  "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono:  "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  <script type="text/babel" src="design-canvas.jsx"></script>
-  <script type="text/babel" src="heroes.jsx"></script>
-  <script type="text/babel">
-    const { DesignCanvas, DCSection, DCArtboard } = window;
+      /* fluid type — clamps used throughout */
+      --display-1:  clamp(48px, 9vw, 132px);
+      --display-2:  clamp(40px, 6.5vw, 88px);
+      --headline:   clamp(28px, 4vw, 56px);
+      --body-large: clamp(16px, 1.4vw, 21px);
+      --body:       clamp(15px, 1.15vw, 17px);
+      --eyebrow:    clamp(10px, 0.85vw, 12px);
 
-    const OPT_A = "Designed for the world's leading airports";
-    const OPT_B = "Premium airport pods";
-
-    function App() {
-      return (
-        <DesignCanvas>
-          <DCSection
-            id="caption-revision"
-            title="02 · Architectural — caption revision"
-            subtitle={"KSIA naming removed. Two partner-agnostic options for the lower-left credibility line. Same position, same Inter micro / 0.06em mono treatment, same 'Opening 2027' meta. Pick A or B."}
-          >
-            <DCArtboard id="d2-desktop-a" label="A · 'leading airports' — Desktop · 1440 × 900" width={1440} height={900}>
-              <HeroTwoDesktop caption={OPT_A} captionMeta="Opening 2027" />
-            </DCArtboard>
-            <DCArtboard id="d2-desktop-b" label="B · 'premium airport pods' — Desktop · 1440 × 900" width={1440} height={900}>
-              <HeroTwoDesktop caption={OPT_B} captionMeta="Opening 2027" />
-            </DCArtboard>
-          </DCSection>
-
-          <DCSection
-            id="caption-revision-mobile"
-            title="Mobile — same revision"
-            subtitle="Caption appears bottom-left of the photo plate at 9px / 0.06em."
-          >
-            <DCArtboard id="d2-mobile-a" label="A · 'leading airports' — Mobile" width={390} height={844}>
-              <HeroTwoMobile caption={OPT_A} captionMeta="Opening 2027" />
-            </DCArtboard>
-            <DCArtboard id="d2-mobile-b" label="B · 'premium airport pods' — Mobile" width={390} height={844}>
-              <HeroTwoMobile caption={OPT_B} captionMeta="Opening 2027" />
-            </DCArtboard>
-          </DCSection>
-
-          <DCSection
-            id="other-directions"
-            title="Reference — other two directions (unchanged)"
-            subtitle="Quieter and Cinematic, kept for context."
-          >
-            <DCArtboard id="d1-desktop" label="01 · Quieter — Desktop" width={1440} height={900}>
-              <HeroOneDesktop />
-            </DCArtboard>
-            <DCArtboard id="d3-desktop" label="03 · Cinematic — Desktop" width={1440} height={900}>
-              <HeroThreeDesktop />
-            </DCArtboard>
-            <DCArtboard id="d1-mobile" label="01 · Quieter — Mobile" width={390} height={844}>
-              <HeroOneMobile />
-            </DCArtboard>
-            <DCArtboard id="d3-mobile" label="03 · Cinematic — Mobile" width={390} height={844}>
-              <HeroThreeMobile />
-            </DCArtboard>
-          </DCSection>
-        </DesignCanvas>
-      );
+      /* horizontal page rhythm */
+      --gutter: clamp(20px, 4vw, 56px);
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-  </script>
+    /* ── reset + base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: var(--body);
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* ── shared atoms ─────────────────────────────────────── */
+    .serif { font-family: var(--serif); font-weight: 300; letter-spacing: -0.012em; }
+    .serif em { font-style: italic; font-weight: 300; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: var(--eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      display: block;
+      width: clamp(20px, 2vw, 32px);
+      height: 1px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    .micro {
+      font-family: var(--sans);
+      font-size: clamp(10px, 0.85vw, 12px);
+      letter-spacing: 0.04em;
+    }
+
+    /* light slash — the architectural-direction signature */
+    .light-slash {
+      position: absolute;
+      pointer-events: none;
+      background: linear-gradient(90deg,
+        rgba(201,153,122,0) 0%,
+        rgba(201,153,122,0.55) 40%,
+        rgba(229,201,180,0.85) 50%,
+        rgba(201,153,122,0.55) 60%,
+        rgba(201,153,122,0) 100%);
+      filter: blur(2px);
+      mix-blend-mode: screen;
+    }
+
+    /* ── top nav ──────────────────────────────────────────── */
+    .topnav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: clamp(20px, 2.5vw, 32px) var(--gutter);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--cream);
+    }
+    .nav-logo img {
+      height: clamp(34px, 3.4vw, 47px);
+      width:  clamp(34px, 3.4vw, 47px);
+      object-fit: contain;
+    }
+    .nav-logo .wordmark {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(18px, 1.9vw, 26px);
+      letter-spacing: 0.005em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .nav-logo .wordmark em {
+      font-style: italic;
+      font-weight: 700;
+    }
+    .nav-link {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: clamp(10px, 0.85vw, 12px);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cream);
+      position: relative;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.35;
+    }
+    /* mobile: show only the abbreviated link */
+    @media (max-width: 600px) {
+      .nav-link .full { display: none; }
+    }
+    @media (min-width: 601px) {
+      .nav-link .short { display: none; }
+    }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--sage);
+      color: var(--cream);
+      min-height: 100vh;
+      min-height: 100svh; /* mobile safe */
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .hero { grid-template-columns: 42fr 58fr; }
+    }
+
+    .hero-text {
+      position: relative;
+      padding: clamp(120px, 18vh, 260px) var(--gutter) clamp(80px, 8vh, 100px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 60vh;
+    }
+    @media (min-width: 768px) {
+      .hero-text { min-height: 100vh; min-height: 100svh; }
+    }
+    .hero-text h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: var(--display-1);
+      line-height: 0.93;
+      letter-spacing: -0.018em;
+      color: var(--cream);
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent-soft);
+    }
+    .hero-caption {
+      margin-top: clamp(48px, 8vh, 96px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 48px;
+      align-items: baseline;
+      color: rgba(245,239,230,0.7);
+    }
+    .hero-caption .meta { opacity: 0.6; }
+
+    .hero-photo {
+      position: relative;
+      overflow: hidden;
+      background: #1c1814;
+      min-height: 40vh;
+    }
+    @media (min-width: 768px) {
+      .hero-photo { min-height: 100vh; min-height: 100svh; }
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+    }
+    .hero-photo .light-slash {
+      left: -10%;
+      right: -10%;
+      top: 46%;
+      height: clamp(12px, 1.6vw, 18px);
+      transform: rotate(-2deg);
+    }
+
+    /* ── section divider (subtle warmth band) ─────────────── */
+    .divider {
+      position: relative;
+      width: 100%;
+      height: clamp(56px, 8vh, 96px);
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .divider .texture {
+      position: absolute; inset: 0;
+      background-image: url("assets/photos/cream-composite.jpg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+      mix-blend-mode: multiply;
+    }
+    .divider .wash {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg,
+        var(--cream) 0%,
+        rgba(245,239,230,0.55) 50%,
+        var(--cream) 100%);
+    }
+    .divider .hairline {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: rgba(92,107,90,0.14);
+    }
+
+    /* ── section scaffolding ──────────────────────────────── */
+    section {
+      position: relative;
+      width: 100%;
+    }
+    .section-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: clamp(80px, 12vw, 200px) var(--gutter);
+    }
+
+    /* ── AIRPORTS ─────────────────────────────────────────── */
+    .airports {
+      background: var(--cream);
+      color: var(--ink);
+    }
+    .airports .lede {
+      max-width: 1100px;
+    }
+    .airports .lede h2 {
+      margin: clamp(28px, 4vw, 56px) 0 0;
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: var(--display-2);
+      line-height: 0.98;
+      letter-spacing: -0.014em;
+      color: var(--sage);
+      text-wrap: pretty;
+    }
+    .airports .lede h2 em {
+      font-style: italic;
+      font-weight: 300;
+    }
+    .airports .lede p {
+      margin: clamp(28px, 3vw, 48px) 0 0;
+      max-width: 580px;
+      font-size: var(--body-large);
+      line-height: 1.6;
+      color: var(--ink-soft);
+      text-wrap: pretty;
+    }
+
+    .pillars {
+      margin-top: clamp(64px, 10vw, 144px);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(48px, 5vw, 80px);
+    }
+    @media (min-width: 768px) {
+      .pillars { grid-template-columns: repeat(3, 1fr); }
+    }
+    .pillar {
+      border-top: 1px solid rgba(92,107,90,0.24);
+      padding-top: clamp(20px, 2.4vw, 32px);
+    }
+    .pillar .pillar-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      opacity: 0.7;
+    }
+    .pillar h3 {
+      margin: clamp(16px, 1.8vw, 24px) 0 clamp(16px, 1.6vw, 20px);
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: var(--headline);
+      line-height: 1.05;
+      color: var(--sage);
+      letter-spacing: -0.008em;
+    }
+    .pillar h3 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+    .pillar p {
+      margin: 0;
+      font-size: var(--body);
+      line-height: 1.6;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+
+    /* the airports section photo — full-bleed, sits below the pillars */
+    .airports-photo {
+      margin-top: clamp(80px, 10vw, 144px);
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/7;
+      overflow: hidden;
+      background: #2c241c;
+    }
+    @media (max-width: 600px) {
+      .airports-photo { aspect-ratio: 4/3; }
+    }
+    .airports-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .airports-photo .light-slash {
+      left: -10%;
+      right: -10%;
+      top: 50%;
+      height: clamp(10px, 1.2vw, 14px);
+      transform: rotate(-1.5deg);
+      opacity: 0.7;
+    }
+    .airports-photo .caption {
+      position: absolute;
+      left: clamp(16px, 2vw, 28px);
+      bottom: clamp(16px, 2vw, 28px);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,239,230,0.7);
+    }
+
+    /* ── CITY LOUNGES ─────────────────────────────────────── */
+    .lounges {
+      background: var(--sage);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .lounges .section-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(48px, 6vw, 96px);
+      align-items: start;
+    }
+    @media (min-width: 1024px) {
+      .lounges .section-inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+    }
+    .lounges .copy {
+      max-width: 580px;
+    }
+    .lounges .eyebrow { color: var(--sage-light); }
+    .lounges h2 {
+      margin: clamp(28px, 4vw, 56px) 0 clamp(28px, 3vw, 40px);
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: var(--display-2);
+      line-height: 0.98;
+      letter-spacing: -0.016em;
+      color: var(--cream);
+      text-wrap: balance;
+    }
+    .lounges h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent-soft);
+    }
+    .lounges .copy p {
+      margin: 0;
+      font-size: var(--body-large);
+      line-height: 1.6;
+      color: rgba(245,239,230,0.82);
+      text-wrap: pretty;
+    }
+    .amenities {
+      list-style: none;
+      margin: clamp(40px, 5vw, 72px) 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(245,239,230,0.18);
+    }
+    @media (min-width: 600px) {
+      .amenities { grid-template-columns: repeat(3, 1fr); }
+    }
+    .amenities li {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.3;
+      color: var(--cream);
+      padding: clamp(16px, 1.6vw, 22px) 0;
+      border-bottom: 1px solid rgba(245,239,230,0.18);
+    }
+    .amenities li em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent-soft);
+    }
+
+    .lounges-photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--sage-deep);
+    }
+    .lounges-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .lounges-photo .light-slash {
+      left: -10%; right: -10%;
+      top: 50%;
+      height: clamp(10px, 1.4vw, 16px);
+      transform: rotate(-2deg);
+      opacity: 0.5;
+    }
+    .lounges-photo .caption {
+      position: absolute;
+      left: clamp(16px, 2vw, 28px);
+      bottom: clamp(16px, 2vw, 28px);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,239,230,0.75);
+    }
+
+    /* ── PARTNER CTA ──────────────────────────────────────── */
+    .partner {
+      background: var(--cream);
+      color: var(--ink);
+    }
+    .partner .section-inner {
+      max-width: 1100px;
+    }
+    .partner .eyebrow { color: var(--sage); }
+    .partner h2 {
+      margin: clamp(28px, 4vw, 56px) 0 clamp(28px, 3vw, 48px);
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: var(--display-2);
+      line-height: 0.98;
+      letter-spacing: -0.016em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .partner h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--sage);
+    }
+    .partner p {
+      margin: 0;
+      max-width: 580px;
+      font-size: var(--body-large);
+      line-height: 1.6;
+      color: var(--ink-soft);
+      text-wrap: pretty;
+    }
+    .cta-row {
+      margin-top: clamp(48px, 6vw, 80px);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: clamp(24px, 3vw, 48px);
+    }
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: clamp(16px, 1.6vw, 22px) clamp(24px, 2.4vw, 36px);
+      background: var(--sage);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: clamp(12px, 1vw, 14px);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 200ms ease;
+    }
+    .cta-button:hover { background: var(--sage-deep); }
+    .cta-button .arrow {
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: currentColor;
+    }
+    .cta-meta {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(15px, 1.2vw, 18px);
+      color: var(--ink-soft);
+      text-wrap: balance;
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    footer {
+      background: var(--sage-deep);
+      color: rgba(245,239,230,0.7);
+      padding: clamp(40px, 5vw, 64px) var(--gutter);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 48px;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--sans);
+      font-size: clamp(11px, 0.9vw, 13px);
+    }
+    footer .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    footer .brand img {
+      height: 22px; width: 22px;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+    footer .brand-name {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--cream);
+      letter-spacing: 0.005em;
+    }
+    footer .brand-name em {
+      font-style: italic;
+      font-weight: 700;
+    }
+    footer a:hover { color: var(--cream); }
+    footer .links {
+      display: flex;
+      gap: clamp(20px, 3vw, 40px);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ─────────────────────────────────────────────── -->
+  <header class="hero">
+    <nav class="topnav">
+      <a href="/" class="nav-logo" aria-label="SanctumSpace home">
+        <img src="assets/logomark-cream.png" alt="" />
+        <span class="wordmark">Sanctum<em>Space</em></span>
+      </a>
+      <a href="Partners.html" class="nav-link">
+        <span class="full">Partner with us</span>
+        <span class="short">Partner</span>
+      </a>
+    </nav>
+
+    <div class="hero-text">
+      <h1 class="serif">
+        Control<br/>
+        your<br/>
+        <em>moments.</em>
+      </h1>
+      <div class="hero-caption">
+        <span class="micro">Premium airport pods</span>
+        <span class="micro meta">Opening 2027</span>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="assets/photos/wall-wash.jpg" alt="A quiet interior with a single shaft of warm 2700K light emerging from behind a wall plane." />
+      <div class="light-slash"></div>
+    </div>
+  </header>
+
+  <!-- ── DIVIDER ──────────────────────────────────────────── -->
+  <div class="divider" aria-hidden="true">
+    <div class="texture"></div>
+    <div class="wash"></div>
+    <div class="hairline"></div>
+  </div>
+
+  <!-- ── AIRPORTS ─────────────────────────────────────────── -->
+  <section class="airports" id="airports">
+    <div class="section-inner">
+      <div class="lede">
+        <span class="eyebrow" style="color: var(--sage);">Where we begin</span>
+        <h2>
+          The airport. Where minutes <em>matter most.</em>
+        </h2>
+        <p>
+          Lounges serve the crowd. Hotels serve the overnight. We serve
+          the traveler who needs two private hours between flights — and
+          nothing more.
+        </p>
+      </div>
+
+      <div class="pillars">
+        <article class="pillar">
+          <div class="pillar-num">01</div>
+          <h3>Silence is <em>engineered.</em></h3>
+          <p>
+            Acoustic panels. Solid mahogany interior. The soft thunk of
+            arrival. You shouldn't hear the world. The world shouldn't
+            hear you.
+          </p>
+        </article>
+        <article class="pillar">
+          <div class="pillar-num">02</div>
+          <h3>Your time, <em>your terms.</em></h3>
+          <p>
+            No timers. No extensions. Stay as long as you need. Close
+            the door when you leave. Pay for what you used. That's it.
+          </p>
+        </article>
+        <article class="pillar">
+          <div class="pillar-num">03</div>
+          <h3>Alone, <em>together.</em></h3>
+          <p>
+            You'll recognize them. They'll recognize you. Connection
+            at the coffee bar. Silence in your pod. Both on your terms.
+          </p>
+        </article>
+      </div>
+
+      <div class="airports-photo">
+        <img src="assets/photos/leather-shell.jpg" alt="Cream nappa leather contoured into a brushed walnut chair shell." />
+        <div class="light-slash"></div>
+        <div class="caption">The pod · interior detail</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CITY LOUNGES ─────────────────────────────────────── -->
+  <section class="lounges" id="cities">
+    <div class="section-inner">
+      <div class="copy">
+        <span class="eyebrow">Beyond the gate</span>
+        <h2>
+          Your sanctuary,<br/>
+          in every <em>city.</em>
+        </h2>
+        <p>
+          The first city sanctuary opens in New York. Private workspace,
+          shower, sauna, pool — and the same sanctuary you'd find at the
+          gate. One membership. Infinite moments.
+        </p>
+        <ul class="amenities">
+          <li>Workspace</li>
+          <li>Shower</li>
+          <li>Sauna</li>
+          <li>Pool</li>
+          <li>Gym</li>
+          <li><em>Coffee bar</em></li>
+        </ul>
+      </div>
+
+      <div class="lounges-photo">
+        <img src="assets/photos/sage-wool.jpg" alt="Soft sage wool textile in close-up, meeting a hand-finished brushed walnut edge." />
+        <div class="light-slash"></div>
+        <div class="caption">City sanctuary · material study</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PARTNER ──────────────────────────────────────────── -->
+  <section class="partner" id="partner">
+    <div class="section-inner">
+      <span class="eyebrow">Build it with us</span>
+      <h2>
+        Built with the people who define <em>their categories.</em>
+      </h2>
+      <p>
+        SanctumSpace is a co-creation, not a vendor relationship. We're
+        in early conversations with global airport operators, hospitality
+        partners, and design firms to shape what comes next.
+      </p>
+      <div class="cta-row">
+        <a href="Partners.html" class="cta-button">
+          Explore partnerships
+          <span class="arrow" aria-hidden="true"></span>
+        </a>
+        <span class="cta-meta">
+          Or write directly to <a href="mailto:juriana@sanctum-space.com" style="text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(74,74,72,0.3);">juriana@sanctum-space.com</a>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <footer>
+    <div class="brand">
+      <img src="assets/logomark-cream.png" alt="" />
+      <span class="brand-name">Sanctum<em>Space</em></span>
+      <span style="opacity: 0.5; margin-left: 8px;">© 2026</span>
+    </div>
+    <div class="links">
+      <a href="Partners.html">Partners</a>
+      <a href="mailto:info@sanctum-space.com">info@sanctum-space.com</a>
+    </div>
+  </footer>
+
 </body>
 </html>
