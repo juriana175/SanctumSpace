@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SanctumSpace — Homepage hero, three directions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="heroes.jsx"></script>
+  <script type="text/babel">
+    const { DesignCanvas, DCSection, DCArtboard } = window;
+
+    const OPT_A = "Designed for the world's leading airports";
+    const OPT_B = "Premium airport pods";
+
+    function App() {
+      return (
+        <DesignCanvas>
+          <DCSection
+            id="caption-revision"
+            title="02 · Architectural — caption revision"
+            subtitle={"KSIA naming removed. Two partner-agnostic options for the lower-left credibility line. Same position, same Inter micro / 0.06em mono treatment, same 'Opening 2027' meta. Pick A or B."}
+          >
+            <DCArtboard id="d2-desktop-a" label="A · 'leading airports' — Desktop · 1440 × 900" width={1440} height={900}>
+              <HeroTwoDesktop caption={OPT_A} captionMeta="Opening 2027" />
+            </DCArtboard>
+            <DCArtboard id="d2-desktop-b" label="B · 'premium airport pods' — Desktop · 1440 × 900" width={1440} height={900}>
+              <HeroTwoDesktop caption={OPT_B} captionMeta="Opening 2027" />
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection
+            id="caption-revision-mobile"
+            title="Mobile — same revision"
+            subtitle="Caption appears bottom-left of the photo plate at 9px / 0.06em."
+          >
+            <DCArtboard id="d2-mobile-a" label="A · 'leading airports' — Mobile" width={390} height={844}>
+              <HeroTwoMobile caption={OPT_A} captionMeta="Opening 2027" />
+            </DCArtboard>
+            <DCArtboard id="d2-mobile-b" label="B · 'premium airport pods' — Mobile" width={390} height={844}>
+              <HeroTwoMobile caption={OPT_B} captionMeta="Opening 2027" />
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection
+            id="other-directions"
+            title="Reference — other two directions (unchanged)"
+            subtitle="Quieter and Cinematic, kept for context."
+          >
+            <DCArtboard id="d1-desktop" label="01 · Quieter — Desktop" width={1440} height={900}>
+              <HeroOneDesktop />
+            </DCArtboard>
+            <DCArtboard id="d3-desktop" label="03 · Cinematic — Desktop" width={1440} height={900}>
+              <HeroThreeDesktop />
+            </DCArtboard>
+            <DCArtboard id="d1-mobile" label="01 · Quieter — Mobile" width={390} height={844}>
+              <HeroOneMobile />
+            </DCArtboard>
+            <DCArtboard id="d3-mobile" label="03 · Cinematic — Mobile" width={390} height={844}>
+              <HeroThreeMobile />
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
